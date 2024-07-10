@@ -1,0 +1,34 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "sleeper.fullname" . }}-sleep-job
+  labels:
+    {{- include "sleeper.labels" . | nindent 4 }}
+  annotations:
+    helm.sh/hook: 'pre-install,pre-upgrade'
+    helm.sh/hook-delete-policy: before-hook-creation
+    helm.sh/hook-weight: '1'
+spec:
+  template:
+    metadata:
+      labels:
+        {{- include "sleeper.labels" . | nindent 8 }}
+    spec:
+      containers:
+        - name: sleeper
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["sleep", "180"]
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+      restartPolicy: Never
+      securityContext:
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+  backoffLimit: {{ .Values.backoffLimit | default 4 }}
