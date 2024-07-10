@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sleeper-test
+  namespace: argocd-system
+operation:
+  initiatedBy:
+    automated: true
+  retry:
+    limit: 5
+spec:
+  destination:
+    namespace: llarsson-demo
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    path: sleeper
+    repoURL: https://github.com/Pavan-Gunda/hooks-test.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
