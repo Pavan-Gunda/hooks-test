@@ -3,11 +3,6 @@ kind: Application
 metadata:
   name: sleeper-test
   namespace: argocd-system
-operation:
-  initiatedBy:
-    automated: true
-  retry:
-    limit: 5
 spec:
   destination:
     namespace: llarsson-demo
