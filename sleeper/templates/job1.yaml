@@ -4,10 +4,6 @@ metadata:
   name: {{ include "sleeper.fullname" . }}-sleep-job
   labels:
     {{- include "sleeper.labels" . | nindent 4 }}
-  annotations:
-    helm.sh/hook: 'pre-install'
-    helm.sh/hook-delete-policy: before-hook-creation
-    helm.sh/hook-weight: '-1'
 spec:
   template:
     metadata:
