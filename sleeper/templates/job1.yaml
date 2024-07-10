@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
         - name: sleeper
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.repository }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["sleep", "180"]
           resources:
