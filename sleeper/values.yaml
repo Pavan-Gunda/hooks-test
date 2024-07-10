@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: busybox:1.35
+  repository: busybox
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: 1.35
 
 imagePullSecrets: []
 nameOverride: ""
